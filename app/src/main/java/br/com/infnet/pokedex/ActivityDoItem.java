@@ -18,13 +18,23 @@ import butterknife.ButterKnife;
 
 public class ActivityDoItem extends AppCompatActivity {
 
-    @BindView(R.id.tv_titulo)
+    @BindView(R.id.tv_detail_name)
     TextView tTitulo;
-    @BindView(R.id.fotoImageView)
+    @BindView(R.id.iv_detail_pokemon)
     ImageView tvImagemText;
+    @BindView(R.id.tv_detail_types)
+    TextView tType;
+    @BindView(R.id.tv_detail_attack)
+    TextView tAttack;
+
+
 
     private Context context;
 
+
+    public ActivityDoItem(){
+
+    }
 
     public ActivityDoItem(Context context) {
         this.context = context;
@@ -39,10 +49,20 @@ public class ActivityDoItem extends AppCompatActivity {
         setContentView(R.layout.activity_do_item);
         ButterKnife.bind(this);
 
+        tTitulo = (TextView) findViewById(R.id.tv_detail_name);
+        tvImagemText = (ImageView) findViewById(R.id.iv_detail_pokemon);
+        tType = (TextView)findViewById(R.id.tv_detail_types);
+        tAttack = (TextView)findViewById(R.id.tv_detail_attack);
+
         if (getIntent() != null && getIntent().hasExtra("POKEMON")) {
-            final Pokemon item = getIntent().getParcelableExtra("POKEMON");
-            tTitulo.setText(item.getName());
-            Glide.with(context)
+
+            Bundle bundle = getIntent().getExtras();
+
+            final Pokemon item =  (Pokemon) bundle.getSerializable("POKEMON");
+
+            tTitulo.setText(item.getName().toUpperCase());
+            tAttack.setText(("Attack: " + String.valueOf(item.getAttack())));
+            Glide.with(this)
                     .load("http://pokeapi.co/media/sprites/pokemon/" + item.getNumber() + ".png")
                     .centerCrop()
                     .crossFade()

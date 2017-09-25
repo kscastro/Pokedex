@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Pokemon p = dataset.get(position);
         holder.nombreTextView.setText(p.getName());
         Glide.with(context)
@@ -50,9 +51,13 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
         holder.fotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(holder.fotoImageView.getContext(), ActivityDoItem.class);
-                intent.putExtra("POKEMON", String.valueOf(p));
-                holder.fotoImageView.getContext().startActivity(intent);
+                Intent intent = new Intent(context, ActivityDoItem.class);
+                intent.putExtra("POKEMON", p);
+
+                Log.d("IndexPokemon", String.valueOf(dataset.get(position)));
+                Log.d("Pokemon", p.getName());
+
+                context.startActivity(intent);
 
             }
         });
@@ -66,6 +71,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
     public void adicionarListaPokemon(ArrayList<Pokemon> listaPokemon) {
         dataset.addAll(listaPokemon);
         notifyDataSetChanged();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

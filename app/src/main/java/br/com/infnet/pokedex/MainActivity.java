@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
         mSignInButton.setOnClickListener(this);
 
 
-       mGoogleApiClient = buildGoogleApiClient();
+        mGoogleApiClient = buildGoogleApiClient();
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://pokeapi.co/api/v2/")
+                .baseUrl("http://pokeapi.co")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -244,6 +244,11 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
                     ArrayList<Pokemon> listaPokemon = pokemonResposta.getResults();
 
                     listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
+
+                    Log.d("Ataque1", String.valueOf(listaPokemon.get(1).getAttack()));
+                    Log.d("Ataque2", String.valueOf(listaPokemon.get(2).getAttack()));
+                    Log.d("Ataque3", String.valueOf(listaPokemon.get(3).getAttack()));
+
 
                 } else {
                     Log.e(TAG, " onResponse: " + response.errorBody());

@@ -1,32 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.infnet.pokedex.ActivityDoItem">
+    android:paddingBottom="@dimen/fab_margin"
+    android:paddingLeft="@dimen/fab_margin"
+    android:paddingRight="@dimen/fab_margin"
+    android:paddingTop="@dimen/fab_margin"
+    tools:context="com.jonatasleon.pokedex.DetailActivity">
 
     <ImageView
-        android:id="@+id/fotoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:id="@+id/iv_detail_pokemon"
         android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal" />
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/tv_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@null"
+        android:id="@+id/tv_detail_name"
+        android:layout_alignTop="@+id/iv_detail_pokemon"
+        android:layout_toRightOf="@+id/iv_detail_pokemon"
+        android:layout_toEndOf="@+id/iv_detail_pokemon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@null"
+        android:id="@+id/tv_detail_types"
+        android:layout_below="@+id/tv_detail_name"
+        android:layout_toRightOf="@+id/iv_detail_pokemon"
+        android:layout_toEndOf="@+id/iv_detail_pokemon" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fotoImageView"
-        android:gravity="center_horizontal"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:textSize="18dp"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="292dp" />
+        android:layout_below="@+id/iv_detail_pokemon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:background="#6000">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="@null"
+            android:id="@+id/tv_detail_attack"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="@null"
+            android:id="@+id/tv_detail_defense"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="@null"
+            android:id="@+id/tv_detail_speed"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"/>
+    </LinearLayout>
 
 </RelativeLayout>
