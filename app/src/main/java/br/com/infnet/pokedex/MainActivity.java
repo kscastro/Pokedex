@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://pokeapi.co")
+                .baseUrl("http://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -245,9 +245,6 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
 
                     listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
 
-                    Log.d("Ataque1", String.valueOf(listaPokemon.get(1).getAttack()));
-                    Log.d("Ataque2", String.valueOf(listaPokemon.get(2).getAttack()));
-                    Log.d("Ataque3", String.valueOf(listaPokemon.get(3).getAttack()));
 
 
                 } else {
