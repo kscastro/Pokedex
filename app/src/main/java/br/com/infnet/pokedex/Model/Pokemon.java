@@ -1,6 +1,4 @@
-package br.com.infnet.pokedex;
-
-import com.google.gson.annotations.SerializedName;
+package br.com.infnet.pokedex.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

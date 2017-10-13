@@ -1,8 +1,7 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,20 +13,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import br.com.infnet.pokedex.Pokemon;
+import br.com.infnet.pokedex.Model.Pokemon;
+import br.com.infnet.pokedex.R;
 
 /**
  * Created by kaike on 03/09/2017.
  */
 
-public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapter.ViewHolder> {
+public class ListAdapeter extends RecyclerView.Adapter<ListAdapeter.ViewHolder> {
     private  ArrayList<Pokemon> dataset;
     private Context context;
 
-    public ListaPokemonAdapter(Context context) {
+    public ListAdapeter(Context context) {
         this.context = context;
         dataset = new ArrayList<>();
     }
@@ -51,7 +50,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
         holder.fotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityDoItem.class);
+                Intent intent = new Intent(context, Detail.class);
                 intent.putExtra("POKEMON", p);
 
                 Log.d("IndexPokemon", String.valueOf(dataset.get(position)));

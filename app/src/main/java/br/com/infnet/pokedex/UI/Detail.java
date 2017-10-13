@@ -1,11 +1,9 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.UI;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 
+import br.com.infnet.pokedex.Model.Pokemon;
+import br.com.infnet.pokedex.Model.Status;
+import br.com.infnet.pokedex.R;
+import br.com.infnet.pokedex.Services.PokeapiService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -22,7 +24,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ActivityDoItem extends AppCompatActivity {
+public class Detail extends AppCompatActivity {
 
     private Retrofit retrofit = new Retrofit.Builder().
             baseUrl("http://pokeapi.co/api/v2/").
@@ -41,16 +43,20 @@ public class ActivityDoItem extends AppCompatActivity {
     TextView tDefense;
     @BindView(R.id.tv_detail_speed)
     TextView tSpeed;
+    @BindView(R.id.tv_detail_special_defense)
+    TextView tSpDefense;
+    @BindView(R.id.tv_detail_special_attack)
+    TextView tSpAttack;
 
 
     private Context context;
 
 
-    public ActivityDoItem() {
+    public Detail() {
 
     }
 
-    public ActivityDoItem(Context context) {
+    public Detail(Context context) {
         this.context = context;
 
     }
@@ -68,6 +74,8 @@ public class ActivityDoItem extends AppCompatActivity {
         tAttack = (TextView) findViewById(R.id.tv_detail_attack);
         tDefense = (TextView) findViewById(R.id.tv_detail_defense);
         tSpeed = (TextView)findViewById(R.id.tv_detail_speed);
+        tSpDefense = (TextView) findViewById(R.id.tv_detail_special_defense);
+        tSpAttack = (TextView) findViewById(R.id.tv_detail_special_attack);
 
         if (getIntent() != null && getIntent().hasExtra("POKEMON")) {
 
@@ -80,7 +88,7 @@ public class ActivityDoItem extends AppCompatActivity {
                     .enqueue(new Callback<Status>() {
                         @Override
                         public void onResponse(Call<Status> call, Response<Status> response) {
-                            Log.d("ActivityDoItem", "onResponse: " + response.body().toString());
+                            Log.d("Detail", "onResponse: " + response.body().toString());
                             for (Status.StatsBean b : response.body().getStats()) {
                                 if (b.getStat().getName().equalsIgnoreCase("attack")) {
                                     tAttack.setText(("Attack: " + String.valueOf(b.getBase_stat())));
@@ -88,6 +96,10 @@ public class ActivityDoItem extends AppCompatActivity {
                                     tDefense.setText(("Defense: " + String.valueOf(b.getBase_stat())));
                                 }if(b.getStat().getName().equalsIgnoreCase("speed")){
                                     tSpeed.setText(("Speed:" + String.valueOf(b.getBase_stat())));
+                                }if(b.getStat().getName().equalsIgnoreCase("special-defense")){
+                                    tSpDefense.setText(("Special Defense:" + String.valueOf(b.getBase_stat())));
+                                }if(b.getStat().getName().equalsIgnoreCase("special-attack")){
+                                    tSpAttack.setText(("Special Attack:" + String.valueOf(b.getBase_stat())));
                                 }
 
                             }
@@ -100,13 +112,15 @@ public class ActivityDoItem extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Status> call, Throwable t) {
-                            Log.d("ActivityDoItem", "onFailure: ", t);
+                            Log.d("Detail", "onFailure: ", t);
                         }
                     });
             tTitulo.setText(item.getName().toUpperCase());
             tAttack.setText("Attack: carregando..");
             tDefense.setText("Defense: carregando..");
             tSpeed.setText("Defense: carregando..");
+            tSpDefense.setText("Special Defense: carregando..");
+            tSpAttack.setText("Special Attack: carregando..");
             tType.setText("");
             Glide.with(this)
                     .load("http://pokeapi.co/media/sprites/pokemon/" + item.getNumber() + ".png")

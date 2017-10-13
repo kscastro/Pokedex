@@ -1,4 +1,4 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.Model;
 
 /**
  * Created by kaike on 25/09/2017.

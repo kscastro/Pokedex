@@ -1,6 +1,8 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.Model;
 
 import java.util.ArrayList;
+
+import br.com.infnet.pokedex.Model.Pokemon;
 
 /**
  * Created by kaike on 03/09/2017.

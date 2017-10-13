@@ -1,4 +1,4 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.Model;
 
 import java.util.List;
 

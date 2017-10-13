@@ -1,8 +1,11 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+
+import br.com.infnet.pokedex.R;
+import br.com.infnet.pokedex.UI.MainActivity;
 
 
 /**
@@ -10,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 
-    public class SplashScreenActivity extends AppCompatActivity implements Runnable {
+    public class SplashScreen extends AppCompatActivity implements Runnable {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

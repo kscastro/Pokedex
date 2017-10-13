@@ -1,11 +1,9 @@
-package br.com.infnet.pokedex;
+package br.com.infnet.pokedex.UI;
 
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +14,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.infnet.pokedex.Model.Pokemon;
+import br.com.infnet.pokedex.Model.PokemonResposta;
+import br.com.infnet.pokedex.R;
+import br.com.infnet.pokedex.Services.PokeapiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,12 +42,13 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
     private Retrofit retrofit;
 
     private RecyclerView recyclerView;
-    private ListaPokemonAdapter listaPokemonAdapter;
+    private ListAdapeter listaPokemonAdapter;
 
     private int offset;
 
     private boolean aptoParaCarregar;
 
+    //Variaveis referentes ao botão de login
     private static final int SIGNED_IN = 0;
     private static final int STATE_SIGNING_IN = 1;
     private static final int STATE_IN_PROGRESS = 2;
@@ -58,9 +61,6 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
     private Button mSignOutButton;
     private TextView mStatus;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,20 +68,19 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
 
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
-
         mSignInButton.setOnClickListener(this);
-
 
         mGoogleApiClient = buildGoogleApiClient();
 
+        //Referente ao ADMOB Banner de Anuncio
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-
+        //Onde seto as informações que vem da API
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        listaPokemonAdapter = new ListaPokemonAdapter(this);
+        listaPokemonAdapter = new ListAdapeter(this);
         recyclerView.setAdapter(listaPokemonAdapter);
         recyclerView.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -109,7 +108,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
             }
         });
 
-
+        //Onde busco as informações da API
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -120,6 +119,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
         obterDados(offset);
     }
 
+    //Criando um cliente com as confirgurações da API do google
     private GoogleApiClient buildGoogleApiClient() {
         return new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -129,11 +129,14 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
                 .build();
     }
 
+    //Iniciando o serviço do google
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
     }
+
+    //Parando o serviço do google
 
     @Override
     protected void onStop() {
@@ -143,6 +146,7 @@ public class MainActivity extends FragmentActivity implements ConnectionCallback
 
     @Override
     public void onConnectionSuspended(int cause) {
+
         mGoogleApiClient.connect();
     }
 
